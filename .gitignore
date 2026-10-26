@@ -1,0 +1,13 @@
+**/bin/
+**/obj/
+**/node_modules/
+**/.next/
+**/TestResults/
+**/*.tsbuildinfo
+backend/Banking.Api/Data/*.db*
+frontend/.env*
+!frontend/.env.example
+.vs/
+.vscode/
+*.user
+artifacts/

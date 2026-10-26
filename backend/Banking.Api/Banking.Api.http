@@ -1,0 +1,40 @@
+@host = http://127.0.0.1:5000
+
+### ตรวจว่า API ทำงาน
+GET {{host}}/api/health
+
+### อ่านยอดและประวัติ
+GET {{host}}/api/accounts/1
+
+### ฝาก: ส่งซ้ำด้วย requestId เดิมจะไม่เพิ่มยอดซ้ำ
+POST {{host}}/api/transactions
+Content-Type: application/json
+
+{
+  "accountId": 1,
+  "requestId": "4e4b51d2-367c-4e4c-a333-351684e1a001",
+  "type": "deposit",
+  "amount": 500.25
+}
+
+### ID เดิมแต่เปลี่ยนจำนวนเงิน: ต้องได้ 409
+POST {{host}}/api/transactions
+Content-Type: application/json
+
+{
+  "accountId": 1,
+  "requestId": "4e4b51d2-367c-4e4c-a333-351684e1a001",
+  "type": "deposit",
+  "amount": 999
+}
+
+### ถอน: ใช้ ID ใหม่สำหรับรายการใหม่
+POST {{host}}/api/transactions
+Content-Type: application/json
+
+{
+  "accountId": 1,
+  "requestId": "4e4b51d2-367c-4e4c-a333-351684e1a002",
+  "type": "withdraw",
+  "amount": 100
+}
